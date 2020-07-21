@@ -1,1 +1,3 @@
 # List of all dependencies
+python-i18n[YAML]==0.3.7
+pyyaml==5.3.1
