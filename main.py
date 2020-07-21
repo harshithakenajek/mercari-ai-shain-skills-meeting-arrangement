@@ -30,6 +30,9 @@ def hello_world(request):
   # Locale setting
   set_locale(DEFAULT_LANG)
 
+  if not request.method == 'POST':
+    return 'Service Up and Running....'
+
   # return the text
   text = i18n.t('MESSAGE_HELLO_WORLD')
   logging.info(text)

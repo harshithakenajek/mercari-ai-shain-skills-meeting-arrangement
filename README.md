@@ -3,33 +3,33 @@ This is a template repo which acts as a framework for developers to create their
 
 
 # Setup
-## 1 Clone the repo
+## 1. Clone the repo
 ```
 $ git clone git@github.com:keito-fukuda/mercari-ai-shain-skills.git
 ```
 
-## 2 Create Skill Service repo from Template repo 
-### 2.1. Create remote repo:
+## 2. Create Skill Service repo from Template repo 
+### 2.1. Create remote repo
 Create a remote repo with the naming convention `mercari-ai-shain-skills-{skill_name}`
 
-### 2.2. Change remote URL:
+### 2.2. Change remote URL
 Using below git command change the URL for your remote git repo
 ```
 $ git remote set-url origin {git URL}
 ```
 reference: https://docs.github.com/en/github/using-git/changing-a-remotes-url
 
-### 2.3. Verify remote URL:
+### 2.3. Verify remote URL
 Verify that the remote URL has changed to new `git URL` using below git command
 ```
 $ git remote -v
 ```
-### 2.4. Push remote repo:
+### 2.4. Push remote repo
 ```
 git push origin master
 ```
 
-## 3 Creating Virtual Environment
+## 3. Creating Virtual Environment
 This webhook will be run only in `Python 3.6` version. Inorder to manage the version of Python used, we have to create a virtual environment supports `Python 3.6`
 ```
 $ python -m virtualenv -p /usr/bin/python3.6 venv
@@ -37,6 +37,12 @@ $ python -m virtualenv -p /usr/bin/python3.6 venv
 If you are already running Python 3.6, then use below command to create `venv`
 ```
 $ python -m virtualenv venv 
+```
+
+## 4. Installing Packages
+```
+$ source venv/bin/activate  // actiavte virtual environment
+$ pip install -r requirements.txt  // Install all dependencies
 ```
 
 
