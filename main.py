@@ -26,7 +26,7 @@ def set_locale(lang):
   i18n.set('fallback', DEFAULT_LANG)
 
 # Entry point
-def main(request):
+def hello_world(request):
   # Locale setting
   set_locale(DEFAULT_LANG)
 
@@ -34,10 +34,6 @@ def main(request):
   text = i18n.t('MESSAGE_HELLO_WORLD')
   logging.info(text)
   return text
-
-# This is only used when running locally.
-if __name__ == "__main__":
-  main()
 
 
 
