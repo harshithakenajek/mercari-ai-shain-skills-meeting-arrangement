@@ -1,6 +1,7 @@
 import os
 import logging
 import i18n
+import json
 # [IMPORT MORE PACKAGES if any]
 
 # [IMPORT EXTERNAL FILES if any]
@@ -27,11 +28,26 @@ def set_locale(lang):
 
 # Entry point
 def hello_world(request):
+  logging.info('========[START]========')
+
   # Locale setting
   set_locale(DEFAULT_LANG)
 
   if not request.method == 'POST':
-    return 'Service Up and Running....'
+    return 'Service is Up and Running....'
+
+  # Request
+  request_body = request.get_data()
+  request_json = request.get_json()
+
+  # Load json payload from request body
+  if request_json is None:
+    logging.info('Loading json payload from request body')
+    data = request_body.decode('utf8')
+    request_json = json.loads(data)
+
+  logging.info(request_body)
+  logging.info(request_json)
 
   # return the text
   text = i18n.t('MESSAGE_HELLO_WORLD')
