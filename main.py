@@ -44,10 +44,9 @@ def hello_world(request):
   if request_json is None:
     logging.info('Loading json payload from request body')
     data = request_body.decode('utf8')
-    request_json = json.loads(data)
+    params = json.loads(data)
 
-  logging.info(request_body)
-  logging.info(request_json)
+  logging.info(params)
 
   # return the text
   text = i18n.t('MESSAGE_HELLO_WORLD')
