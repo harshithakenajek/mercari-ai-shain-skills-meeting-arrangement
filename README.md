@@ -1,26 +1,29 @@
 # Skill Template
-This is a template repo which acts as a framework for developers to create their own skill service endpoints on cloud functions in a much faster and efficient way
+This is a template repo which acts as a framework for developers to create your own skill endpoint on cloud functions in a much faster and efficient way.
 
+# Prerequisites
+- Python 3.x (You can build your skill in a different language as long as you pick a language supported on cloud functions)
+- Cloud Functions on GCP
 
 # Setup
-## 1. Clone the repo
+## 1. Clone the template repo
 ```
 $ git clone git@github.com:keito-fukuda/mercari-ai-shain-skills.git
 ```
 
-## 2. Create Skill Service repo from Template repo 
-### 2.1. Create remote repo
-Create a remote repo with the naming convention `mercari-ai-shain-skills-{skill_name}`
+## 2. Create  
+### 2.1. Create your own repo
+Create a remote repo with the naming convention `mercari-ai-shain-skills-${SKILL_NAME}`
 
 ### 2.2. Change remote URL
 Using below git command change the URL for your remote git repo
 ```
-$ git remote set-url origin {git URL}
+$ git remote set-url origin ${GIT_URL}
 ```
 reference: https://docs.github.com/en/github/using-git/changing-a-remotes-url
 
 ### 2.3. Verify remote URL
-Verify that the remote URL has changed to new `git URL` using below git command
+Verify that the remote URL has changed to new `GIT_URL` using below git command
 ```
 $ git remote -v
 ```
@@ -29,31 +32,20 @@ $ git remote -v
 git push origin master
 ```
 
-## 3. Creating Virtual Environment
-This webhook will be run only in `Python 3.6` version. Inorder to manage the version of Python used, we have to create a virtual environment supports `Python 3.6`
-```
-$ python -m virtualenv -p /usr/bin/python3.6 venv
-```
-If you are already running Python 3.6, then use below command to create `venv`
+## 3. Create a Virtual Environment
 ```
 $ python -m virtualenv venv 
 ```
 
-## 4. Installing Packages
+## 4. Install Packages
 ```
-$ source venv/bin/activate  // actiavte virtual environment
-$ pip install -r requirements.txt  // Install all dependencies
+$ pip install -r requirements.txt
 ```
 
-
-# Template Project Structure
+# Project Structure
 ## 1. Dependencies - requirements.txt
 Manage required packages with requirements.txt. 
-If you want to install the dependencies in a virtual environment, create and activate that environment first, then use the Install from requirements.txt command.
-```
-$ source venv/bin/activate  // actiavte virtual environment
-$ pip install -r requirements.txt  // Install all dependencies
-```
+
 ## 2. Logic - main.py
 Logics to handle your skill must be included in `main.py`
 
@@ -66,17 +58,16 @@ And add the corresponding environment variable values in `.env.yaml`
 
 ## 4. Locales - locales
 Multi-lingual support for your service has been performed by including required locale files under `locales` directory
-For eg.
+For instance,
 Add `ja.yaml` file which includes messages in Japanese
 Add `en.yaml` file which includes messages in English
-
+As of today, HISASHI supports only `Japanese` & `English`.
 
 # Deployment
 ```
 $ gcloud config set project ${GCP_PROJECT_NAME}
-$ gcloud functions deploy --trigger-http --env-vars-file .env.yaml --runtime=python37 [FUNCTION_NAME]
+$ gcloud functions deploy ${FUNCTION_NAME} --trigger-http --env-vars-file .env.yaml --runtime python37 --entry-point main
 ```
+*Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.
 
-# Share Endpoint URL
-After successful deployment of the new `skill service` on `cloud function`, you need to share the `Target URL` for your endpoint on cloud function with the `respected team` so that they can configure the `webhook-proxy` to forward the requests to your endpoint.
-
+After a successful deployment of your `skill` on `cloud functions`, you need to share the `Target URL` for your endpoint on cloud functions with the AI Shain team(#pj-ai-shain-support) so that they can configure `HISASHI` to forward the requests to your endpoint.

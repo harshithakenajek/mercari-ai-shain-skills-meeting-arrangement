@@ -27,7 +27,7 @@ def set_locale(lang):
   i18n.set('fallback', DEFAULT_LANG)
 
 # Entry point
-def hello_world(request):
+def main(request):
   logging.info('========[START]========')
 
   # Locale setting
@@ -37,15 +37,7 @@ def hello_world(request):
     return 'Service is Up and Running....'
 
   # Request
-  request_body = request.get_data()
-  request_json = request.get_json()
-
-  # Load json payload from request body
-  if request_json is None:
-    logging.info('Loading json payload from request body')
-    data = request_body.decode('utf8')
-    params = json.loads(data)
-
+  params = request.get_json()
   logging.info(params)
 
   # return the text
