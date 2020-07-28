@@ -66,7 +66,7 @@ As of today, HISASHI supports only `Japanese` & `English`.
 # Deployment
 ```
 $ gcloud config set project ${GCP_PROJECT_NAME}
-$ gcloud functions deploy ${FUNCTION_NAME} --trigger-http --env-vars-file .env.yaml --runtime python37 --entry-point main
+$ gcloud functions deploy ${FUNCTION_NAME} --trigger-http --env-vars-file .env.yaml --runtime python37 --allow-unauthenticated --entry-point main
 $ gcloud functions describe ${FUNCTION_NAME} // Get a Target URL
 ```
 *Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.
