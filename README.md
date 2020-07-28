@@ -72,3 +72,8 @@ $ gcloud functions describe ${FUNCTION_NAME} // Get a Target URL
 *Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.
 
 After a successful deployment of your `skill` on `cloud functions`, you need to share the `Target URL` for your endpoint on cloud functions with the AI Shain team(#pj-ai-shain-support) so that they can configure `HISASHI` to forward the requests to your endpoint.
+
+# Logs
+```
+$ gcloud functions logs read ${FUNCTION_NAME}
+```
