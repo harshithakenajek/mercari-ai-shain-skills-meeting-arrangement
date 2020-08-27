@@ -81,7 +81,8 @@ $ gcloud functions logs read ${FUNCTION_NAME}
 # API Specification
 Webhook api request
 ```
-`POST`  `Target URL` 
+method   POST
+url      Target URL (url to access your skill service) 
 ```
 
 `payload` should be a string representing valid JSON.
@@ -91,47 +92,47 @@ Currently there exists 2 types of payload request
 1. Slack User query and Interactive component event:
 
 `parameters`:
-    - user `(String)`: Slack user id (Unique)
-    - user_name `(String)`: Slack user name
-    - user_real_name `(String)`: Slack user real name
-    - user_phone `(String)`: Slack user contact number
-    - user_email `(String)`: Slack user email address
-    - channel_type `(String)`: Slack channel type (private/group/direct_message)
-    - channel `(String)`: Slack channel id (Unique)
-    - channel_name `(String)`: Slack channel name
-    - ts `(String)`: Slack event timestamp
-    - text `(String)`: User query in slack
-    - query `(String)`: User query in slack
-    - intent `(String)`: Dialogflow detected intent name
-    - confidence `(Number)`: Dialogflow confidence value
-    - lang `(String)`: Language code for user query
-    - params `(Object)`: Parameters for dialogflow detected intent
-    - trigger_id `(String)`: Trigger id for slack interactive component(button) click event
-    - intent_in_thread `(String)`: Dialogflow detected intent name in slack thread [default  value = `None`]
-    - is_thread `(Boolean)`: User query in slack thread or not [In thread=`True`, Not in thread=`False`]
-    - response_url `(String)`: Slack response url
+- user `(String)`: Slack user id (Unique)
+- user_name `(String)`: Slack user name
+- user_real_name `(String)`: Slack user real name
+- user_phone `(String)`: Slack user contact number
+- user_email `(String)`: Slack user email address
+- channel_type `(String)`: Slack channel type (private/group/direct_message)
+- channel `(String)`: Slack channel id (Unique)
+- channel_name `(String)`: Slack channel name
+- ts `(String)`: Slack event timestamp
+- text `(String)`: User query in slack
+- query `(String)`: User query in slack
+- intent `(String)`: Dialogflow detected intent name
+- confidence `(Number)`: Dialogflow confidence value
+- lang `(String)`: Language code for user query
+- params `(Object)`: Parameters for dialogflow detected intent
+- trigger_id `(String)`: Trigger id for slack interactive component(button) click event
+- intent_in_thread `(String)`: Dialogflow detected intent name in slack thread [default  value = `None`]
+- is_thread `(Boolean)`: User query in slack thread or not [In thread=`True`, Not in thread=`False`]
+- response_url `(String)`: Slack response url
 
 
 2. Slack Dialog Submission
 
 `parameters`:
-    - type `(String)`: Slack event type [type =`dialog_submission`]
-    - token `(String)`: Slack app token (Unique)
-    - team `(Object)`: Slack workspace data
-        - id `(String)`: Slack team id
-        - domain `(String)`: Slack domain name
-    - user `(Object)`: Slack user data
-        - id `(String)`: Slack user id (Unique)
-        - name `(String)`: Slack user name
-    - channel `(Object)`: Slack user data
-        - id `(String)`: Slack channel id (Unique)
-        - name `(String)`: Slack channel name
-    - submission `(Object)`: Data entered by user in slack dialog
-    - callback_id `(String)`: Callback id set in dialogflow intent response
-    - user_title `(String)`: Slack user designation/position/title
-    - action_ts `(String)`: Slack event timestamp
-    - state `(String)`: Language code for user query
-    - response_url `(String)`: Slack response url
+- type `(String)`: Slack event type [type =`dialog_submission`]
+- token `(String)`: Slack app token (Unique)
+- team `(Object)`: Slack workspace data
+    - id `(String)`: Slack team id
+    - domain `(String)`: Slack domain name
+- user `(Object)`: Slack user data
+    - id `(String)`: Slack user id (Unique)
+    - name `(String)`: Slack user name
+- channel `(Object)`: Slack user data
+    - id `(String)`: Slack channel id (Unique)
+    - name `(String)`: Slack channel name
+- submission `(Object)`: Data entered by user in slack dialog
+- callback_id `(String)`: Callback id set in dialogflow intent response
+- user_title `(String)`: Slack user designation/position/title
+- action_ts `(String)`: Slack event timestamp
+- state `(String)`: Language code for user query
+- response_url `(String)`: Slack response url
 
 
 # Response Format
@@ -144,17 +145,17 @@ Currently there exists 2 types of response
 1. Post slack message:
 
 `fields`:
-    - slack `(Boolean)`: Response to slack or not [to slack=`True`,not to slack=`False`]
-    - type `(String)`: Type of response [Here value is `message`]
-    - message `(String)`: Message to be posted to slack 
-    - channel `(String)`: Slack channel id where message to be post
-    - thread_ts `(String)`: Timestamp for slack thread to post message in a thread
+- slack `(Boolean)`: Response to slack or not [to slack=`True`,not to slack=`False`]
+- type `(String)`: Type of response [Here value is `message`]
+- message `(String)`: Message to be posted to slack 
+- channel `(String)`: Slack channel id where message to be post
+- thread_ts `(String)`: Timestamp for slack thread to post message in a thread
 
 2. Open slack dialog
 
 `fields`:
-    - slack `(Boolean)`: Response to slack or not [to slack=`True`,not to slack=`False`]
-    - type `(String)`: Type of response [Here value is `dialog`]
-    - dialog `(String)`: Dialog component to be opened in slack 
-    - channel `(String)`: Slack channel id where dialog to be open
-    - trigger_id `(String)`: Trigger id required to open a dialog in slack
+- slack `(Boolean)`: Response to slack or not [to slack=`True`,not to slack=`False`]
+- type `(String)`: Type of response [Here value is `dialog`]
+- dialog `(String)`: Dialog component to be opened in slack 
+- channel `(String)`: Slack channel id where dialog to be open
+- trigger_id `(String)`: Trigger id required to open a dialog in slack
