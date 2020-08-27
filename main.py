@@ -36,8 +36,9 @@ def main(request):
   if not request.method == 'POST':
     return 'Service is Up and Running....'
 
-  # Request
-  params = request.get_json()
+  # Request parameters
+  payload = request.get_data()
+  params = json.loads(payload)
   logging.info(params)
 
   # return the text
