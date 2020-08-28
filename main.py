@@ -33,13 +33,13 @@ def main(request):
   if not request.method == 'POST':
     return 'Service is Up and Running....'
 
-  # Locale setting
-  set_locale(request['lang'])
-
   # Request parameters
   payload = request.get_data()
   params = json.loads(payload)
   logging.info(params)
+
+  # Locale setting
+  set_locale(params['lang'])
 
   # Response - Post Slack Message
   return json.dumps({
@@ -49,17 +49,10 @@ def main(request):
     'channel': params['channel']
   })
   
-  # Response - Open Slack Dialog
-  # DIALOG = {'callback_id': 'CALLBACK_ID',
-  #           'title': 'Dialog Title',
-  #           'submit_label': 'Dialog Button Label',
-  #           'state': params['lang'],
-  #           'notify_on_cancel': True,
-  #           'elements': [{'type': 'textarea',
-  #                         'label': 'Textarea Label',
-  #                         'name': 'text',
-  #                         'placeholder': 'Textarea Placeholder'
-  #                       }]}
+  # # Response - Open Slack Dialog
+  # # <Refer `Sample payload` for Response Format - Open Slack Dailog section in README.md
+  # # and create dialog component>
+  # DIALOG = {}
   # return json.dumps({
   #   'slack': True,
   #   'type': 'dialog',
@@ -68,10 +61,10 @@ def main(request):
   #   'channel': params['channel']
   # })
 
-  # Response - No response to return 
+  # # Response - No response to return 
   # return json.dumps({})
 
-  # Please go through README.md to get more clarity on response format
+  # # Go through README.md to get more clarity on Response Format
 
 
 

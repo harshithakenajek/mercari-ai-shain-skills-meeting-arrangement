@@ -69,7 +69,7 @@ Currently there are 2 types of payload requests supported.
 
 `parameters`:
 | Name             | Type      | Description                                                                 |
-|:----------------:|:---------:|:---------------------------------------------------------------------------:|
+|:-----------------|:---------:|:----------------------------------------------------------------------------|
 | user             | `String`  | Slack user id (Unique)                                                      |
 | user_name        | `String`  | Slack user name                                                             |
 | user_real_name   | `String`  | Slack user real name                                                        |
@@ -124,7 +124,7 @@ Sample payload
 
 `parameters`:
 | Name             | Type      | Description                                                                 |
-|:----------------:|:---------:|:---------------------------------------------------------------------------:|
+|:-----------------|:---------:|:----------------------------------------------------------------------------|
 | type             | `String`  | Slack event type [type =`dialog_submission`]                                |
 | token            | `String`  | Slack app token (Unique)                                                    |
 | team             | `Object`  | Slack workspace data                                                        |
@@ -184,7 +184,7 @@ Currently there are 2 types of responses supported.
 
 `fields`:
 | Name             | Type      | Description                                                                 |
-|:----------------:|:---------:|:---------------------------------------------------------------------------:|
+|:-----------------|:---------:|:----------------------------------------------------------------------------|
 | slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
 | type             | `String`  | Type of response [Here value is `message`]                                  |
 | message          | `String`  | Message to be posted to slack                                               |
@@ -206,7 +206,7 @@ Sample payload
 
 `fields`:
 | Name             | Type      | Description                                                                 |
-|:----------------:|:---------:|:---------------------------------------------------------------------------:|
+|:-----------------|:---------:|:----------------------------------------------------------------------------|
 | slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
 | type             | `String`  | Type of response [Here value is `dialog`]                                   |
 | dialog           | `String`  | Dialog component to be opened in slack                                      |
