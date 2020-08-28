@@ -41,10 +41,37 @@ def main(request):
   params = json.loads(payload)
   logging.info(params)
 
-  # return the text
-  text = i18n.t('MESSAGE_HELLO_WORLD')
-  logging.info(text)
-  return text
+  # Response - Post Slack Message
+  return json.dumps({
+    'slack': True,
+    'type': 'message',
+    'message': i18n.t('MESSAGE_HELLO_WORLD'),
+    'channel': params['channel']
+  })
+  
+  # Response - Open Slack Dialog
+  # DIALOG = {'callback_id': 'CALLBACK_ID',
+  #           'title': 'Dialog Title',
+  #           'submit_label': 'Dialog Button Label',
+  #           'state': params['lang'],
+  #           'notify_on_cancel': True,
+  #           'elements': [{'type': 'textarea',
+  #                         'label': 'Textarea Label',
+  #                         'name': 'text',
+  #                         'placeholder': 'Textarea Placeholder'
+  #                       }]}
+  # return json.dumps({
+  #   'slack': True,
+  #   'type': 'dialog',
+  #   'dialog': DIALOG,
+  #   'trigger_id': params['trigger_id'],
+  #   'channel': params['channel']
+  # })
+
+  # Response - No response to return 
+  # return json.dumps({})
+
+  # Please go through README.md to get more clarity on response format
 
 
 
