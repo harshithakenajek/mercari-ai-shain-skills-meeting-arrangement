@@ -30,11 +30,11 @@ def set_locale(lang):
 def main(request):
   logging.info('========[START]========')
 
-  # Locale setting
-  set_locale(DEFAULT_LANG)
-
   if not request.method == 'POST':
     return 'Service is Up and Running....'
+
+  # Locale setting
+  set_locale(request['lang'])
 
   # Request parameters
   payload = request.get_data()
