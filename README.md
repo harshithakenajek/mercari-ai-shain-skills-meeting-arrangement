@@ -69,7 +69,7 @@ Currently there are 2 types of payload requests supported.
 
 `parameters`:
 | Name             | Type      | Description                                                                 |
-|------------------|:---------:|----------------------------------------------------------------------------:|
+|:----------------:|:---------:|:---------------------------------------------------------------------------:|
 | user             | `String`  | Slack user id (Unique)                                                      |
 | user_name        | `String`  | Slack user name                                                             |
 | user_real_name   | `String`  | Slack user real name                                                        |
@@ -124,18 +124,18 @@ Sample payload
 
 `parameters`:
 | Name             | Type      | Description                                                                 |
-|------------------|:---------:|----------------------------------------------------------------------------:|
+|:----------------:|:---------:|:---------------------------------------------------------------------------:|
 | type             | `String`  | Slack event type [type =`dialog_submission`]                                |
 | token            | `String`  | Slack app token (Unique)                                                    |
 | team             | `Object`  | Slack workspace data                                                        |
-|   id             | `String`  | Slack team id                                                               |
-|   domain         | `String`  | Slack domain name                                                           |
+|   - id           | `String`  | Slack team id                                                               |
+|   - domain       | `String`  | Slack domain name                                                           |
 | user             | `Object`  | Slack user data                                                             |
-|   id             | `String`  | Slack user id (Unique)                                                      |
-|   name           | `String`  | Slack user name                                                             |
+|   - id           | `String`  | Slack user id (Unique)                                                      |
+|   - name         | `String`  | Slack user name                                                             |
 | channel          | `Object`  | Slack channel data                                                          |
-|   id             | `String`  | Slack channel id (Unique)                                                   |
-|   name           | `String`  | Slack channel name                                                          |
+|   - id           | `String`  | Slack channel id (Unique)                                                   |
+|   - name         | `String`  | Slack channel name                                                          |
 | submission       | `Object`  | Data entered by user in slack dialog                                        |
 | callback_id      | `String`  | Callback id set in dialogflow intent response                               |
 | user_title       | `String`  | Slack user designation/position/title                                       |
@@ -162,7 +162,9 @@ Sample payload
       "name":"group-ai-shain-req"
    },
    "submission":{
-      "text":"hello how are you"
+      "data1": "value1",
+      "data2": "value2",
+       --:--    : --:--
    },
    "callback_id":"T_Translation_Text_Yes",
    "response_url":"https://hooks.slack.com/app/TABCDEF123/1353152152704/EOajVmIGyjvYPDdkZSDknJCO",
@@ -182,7 +184,7 @@ Currently there are 2 types of responses supported.
 
 `fields`:
 | Name             | Type      | Description                                                                 |
-|------------------|:---------:|----------------------------------------------------------------------------:|
+|:----------------:|:---------:|:---------------------------------------------------------------------------:|
 | slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
 | type             | `String`  | Type of response [Here value is `message`]                                  |
 | message          | `String`  | Message to be posted to slack                                               |
@@ -204,7 +206,7 @@ Sample payload
 
 `fields`:
 | Name             | Type      | Description                                                                 |
-|------------------|:---------:|----------------------------------------------------------------------------:|
+|:----------------:|:---------:|:---------------------------------------------------------------------------:|
 | slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
 | type             | `String`  | Type of response [Here value is `dialog`]                                   |
 | dialog           | `String`  | Dialog component to be opened in slack                                      |
