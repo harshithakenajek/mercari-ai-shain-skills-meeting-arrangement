@@ -4,13 +4,14 @@ This is a repo which acts as a template for developers to create your own skill 
 # Prerequisites
 - Python 3.x (You can build your skill in a different language as long as you pick a language supported on cloud functions)
 - Cloud Functions on GCP
+
 If you would like to build your skill on a different platform, that's fine as long as your skill provides necessary HTTPs endpoint.
 In that case, please jump to step 5 after creating your HTTPs endpoint.
 
 # Steps
 ## 1. Clone the template repo
 ```
-$ git clone git@github.com:kouzoh/mercari-ai-shain-skills.git
+$ git clone git@github.com:kouzoh/mercari-ai-shain-skills-boilerplate.git
 ```
 
 ## 2. Create a repo for your skill 
@@ -57,7 +58,8 @@ Go to [mercari-ai-shain-skills|https://github.com/keito-fukuda/mercari-ai-shain-
 # API Specification
 ## Request
 ```
-POST /
+POST / HTTP/1.1
+Host: ${Your Skill Endpoint}
 ```
 
 `payload` should be a string representing valid JSON.
