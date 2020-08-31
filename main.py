@@ -33,18 +33,38 @@ def main(request):
   if not request.method == 'POST':
     return 'Service is Up and Running....'
 
-  # Locale setting
-  set_locale(request['lang'])
-
   # Request parameters
   payload = request.get_data()
   params = json.loads(payload)
   logging.info(params)
 
-  # return the text
-  text = i18n.t('MESSAGE_HELLO_WORLD')
-  logging.info(text)
-  return text
+  # Locale setting
+  set_locale(params['lang'])
+
+  # Response - Post Slack Message
+  return json.dumps({
+    'slack': True,
+    'type': 'message',
+    'message': i18n.t('MESSAGE_HELLO_WORLD'),
+    'channel': params['channel']
+  })
+  
+  # # Response - Open Slack Dialog
+  # # <Refer `Sample payload` for Response Format - Open Slack Dailog section in README.md
+  # # and create dialog component>
+  # DIALOG = {}
+  # return json.dumps({
+  #   'slack': True,
+  #   'type': 'dialog',
+  #   'dialog': DIALOG,
+  #   'trigger_id': params['trigger_id'],
+  #   'channel': params['channel']
+  # })
+
+  # # Response - No response to return 
+  # return json.dumps({})
+
+  # # Go through README.md to get more clarity on Response Format
 
 
 
