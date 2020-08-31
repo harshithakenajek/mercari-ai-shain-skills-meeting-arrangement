@@ -71,14 +71,16 @@ Currently there are 2 types of payload requests supported.
 `Payload Format`:
 | Name             | Type      | Description                                                                 |
 |:-----------------|:---------:|:----------------------------------------------------------------------------|
-| user             | `String`  | Slack user id (Unique)                                                      |
-| user_name        | `String`  | Slack user name                                                             |
-| user_real_name   | `String`  | Slack user real name                                                        |
-| user_phone       | `String`  | Slack user contact number                                                   |
-| user_email       | `String`  | Slack user email address                                                    |
-| channel_type     | `String`  | Slack channel type (private/group/direct_message)                           |
-| channel          | `String`  | Slack channel id (Unique)                                                   |
-| channel_name     | `String`  | Slack channel name                                                          |
+| user             | `Object`  |                                                                             |
+|   id             | `String`  | Slack user id (Unique)                                                      |
+|   name           | `String`  | Slack user name                                                             |
+|   real_name      | `String`  | Slack user real name                                                        |
+|   phone          | `String`  | Slack user contact number                                                   |
+|   email          | `String`  | Slack user email address                                                    |
+| channel          | `Object`  |                                                                             |
+|   id             | `String`  | Slack channel id (Unique)                                                   |
+|   name           | `String`  | Slack channel name                                                          |
+|   type           | `String`  | Slack channel type (private/group/direct_message)                           |
 | ts               | `String`  | Slack event timestamp                                                       |
 | text             | `String`  | User query in slack                                                         |
 | query            | `String`  | User query in slack                                                         |
@@ -91,33 +93,36 @@ Currently there are 2 types of payload requests supported.
 | is_thread        | `Boolean` | User query in slack thread or not [In thread=`True`, Not in thread=`False`] |
 | response_url     | `String`  | Slack response url                                                          |
 
-
 `Sample Payload`:
 ```
 {
-   "user":"ABCDEF123",
-   "user_name":"firstname.lastname",
-   "user_real_name":"Full Name",
-   "user_phone":"(143) 333-3333",
-   "user_email":"abcd@email_domain.com",
-   "channel_type":"group-ai-shain-req",
-   "channel":"ABCDEF123",
-   "channel_name":"group-ai-shain-req",
-   "ts":"1598610482.004000",
-   "text":"Input text",
-   "query":"Input text",
-   "intent":"T_Translation - Text - Yes",
-   "confidence":1.0,
-   "lang":"en",
-   "params":{
+   "user": {
+       "id": "ABCDEF123",
+       "name": "firstname.lastname",
+       "real_name": "Full Name",
+       "phone": "(143) 333-3333",
+       "email": "abcd@email_domain.com",
+   },
+   "channel": {
+       "id": "ABCDEF123",
+       "name": "group-ai-shain-req",
+       "type": "channel",
+   },
+   "ts": "1598610482.004000",
+   "text": "Input text",
+   "query": "Input text",
+   "intent": "T_Translation - Text - Yes",
+   "confidence": 1.0,
+   "lang": "en",
+   "params": {
        "param1": "value1",
        "param2": "value2",
-       --:--    : --:--
+       --:--   : --:--
    },
-   "trigger_id":"1353122138272.748717076835.7635795da95189a032624b49bec36535",
-   "intent_in_thread":"None",
-   "is_thread":False,
-   "response_url":"https://hooks.slack.com/actions/TABCDEF123/1329488376211/t5AjhGgv6Z8QeBWr7YoDV7zn"
+   "trigger_id": "1353122138272.748717076835.7635795da95189a032624b49bec36535",
+   "intent_in_thread": "None",
+   "is_thread": False,
+   "response_url": "https://hooks.slack.com/actions/TABCDEF123/1329488376211/t5AjhGgv6Z8QeBWr7YoDV7zn"
 }
 ```
 
@@ -129,14 +134,14 @@ Currently there are 2 types of payload requests supported.
 | type             | `String`  | Slack event type [type =`dialog_submission`]                                |
 | token            | `String`  | Slack app token (Unique)                                                    |
 | team             | `Object`  | Slack workspace data                                                        |
-|   - id           | `String`  | Slack team id                                                               |
-|   - domain       | `String`  | Slack domain name                                                           |
+|   id             | `String`  | Slack team id                                                               |
+|   domain         | `String`  | Slack domain name                                                           |
 | user             | `Object`  | Slack user data                                                             |
-|   - id           | `String`  | Slack user id (Unique)                                                      |
-|   - name         | `String`  | Slack user name                                                             |
+|   id             | `String`  | Slack user id (Unique)                                                      |
+|   name           | `String`  | Slack user name                                                             |
 | channel          | `Object`  | Slack channel data                                                          |
-|   - id           | `String`  | Slack channel id (Unique)                                                   |
-|   - name         | `String`  | Slack channel name                                                          |
+|   id             | `String`  | Slack channel id (Unique)                                                   |
+|   name           | `String`  | Slack channel name                                                          |
 | submission       | `Object`  | Data entered by user in slack dialog                                        |
 | callback_id      | `String`  | Callback id set in dialogflow intent response                               |
 | user_title       | `String`  | Slack user designation/position/title                                       |
@@ -147,30 +152,30 @@ Currently there are 2 types of payload requests supported.
 `Sample Payload`:
 ```
 {
-   "type":"dialog_submission",
-   "token":"abcdefghijkl1234",
-   "action_ts":"1598611694.461795",
-   "team":{
-      "id":"TABCDEF123",
-      "domain":"abcdefghijkl"
+   "type": "dialog_submission",
+   "token": "abcdefghijkl1234",
+   "action_ts": "1598611694.461795",
+   "team": {
+      "id": "TABCDEF123",
+      "domain": "abcdefghijkl"
    },
-   "user":{
-      "id":"ABCDEF123",
-      "name":"firstname.lastname"
+   "user": {
+      "id": "ABCDEF123",
+      "name": "firstname.lastname",
+      "title": "Senior Developer"
    },
-   "channel":{
-      "id":"ABCDEF123",
-      "name":"group-ai-shain-req"
+   "channel": {
+      "id": "ABCDEF123",
+      "name": "group-ai-shain-req"
    },
-   "submission":{
+   "submission": {
       "data1": "value1",
       "data2": "value2",
-       --:--    : --:--
+       --:-- : --:--
    },
-   "callback_id":"T_Translation_Text_Yes",
-   "response_url":"https://hooks.slack.com/app/TABCDEF123/1353152152704/EOajVmIGyjvYPDdkZSDknJCO",
-   "state":"en",
-   "user_title":"Senior Developer"
+   "callback_id": "T_Translation_Text_Yes",
+   "response_url": "https://hooks.slack.com/app/TABCDEF123/1353152152704/EOajVmIGyjvYPDdkZSDknJCO",
+   "state": "en",
 }
 ```
 
@@ -196,11 +201,11 @@ Currently there are 2 types of responses supported.
 `Sample Payload`:
 ```
 {
-   "slack":True,
-   "type":"message",
-   "message":"Please give me a Google Slide or Google Docs URL.",
-   "channel":"ABCDEF123",
-   "thread_ts":"1598612489.000300"
+   "slack": True,
+   "type": "message",
+   "message": "Please give me a Google Slide or Google Docs URL.",
+   "channel": "ABCDEF123",
+   "thread_ts": "1598612489.000300"
 }
 ```
 
@@ -219,25 +224,25 @@ Currently there are 2 types of responses supported.
 `Sample Payload`:
 ```
 {
-   "slack":True,
-   "type":"dialog",
-   "dialog":{
-      "callback_id":"T_Translation_Text_Yes",
-      "title":"Text Translation",
-      "submit_label":"Translate",
-      "state":"en",
-      "notify_on_cancel":True,
-      "elements":[
+   "slack": True,
+   "type": "dialog",
+   "dialog": {
+      "callback_id": "T_Translation_Text_Yes",
+      "title": "Text Translation",
+      "submit_label": "Translate",
+      "state": "en",
+      "notify_on_cancel": True,
+      "elements": [
          {
-            "type":"textarea",
-            "label":"Text",
-            "name":"text",
-            "placeholder":"Text"
+            "type": "textarea",
+            "label": "Text",
+            "name": "text",
+            "placeholder": "Text"
          }
       ]
    },
-   "trigger_id":"1353150953984.748717076835.05018bed51c9de935d76f2085bb61d2a",
-   "channel":"ABCDEF123"
+   "trigger_id": "1353150953984.748717076835.05018bed51c9de935d76f2085bb61d2a",
+   "channel": "ABCDEF123"
 }
 ```
 
