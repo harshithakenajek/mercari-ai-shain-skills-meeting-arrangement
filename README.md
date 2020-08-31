@@ -1,5 +1,5 @@
-# Skill Template
-This is a repo which acts as a boilerplate for developers to create your own skill endpoint on cloud functions in a much faster and efficient way.
+# Skill Boilerplate
+This is a repo which acts as a template for developers to create your own skill endpoint on cloud functions in a much faster and efficient way.
 
 # Prerequisites
 - Python 3.x (You can build your skill in a different language as long as you pick a language supported on cloud functions)
@@ -57,8 +57,7 @@ Go to [mercari-ai-shain-skills|https://github.com/keito-fukuda/mercari-ai-shain-
 # API Specification
 ## Request
 ```
-method   POST
-url      Target URL(Your skill endpoint) 
+POST /
 ```
 
 `payload` should be a string representing valid JSON.
