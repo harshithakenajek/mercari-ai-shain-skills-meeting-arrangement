@@ -46,7 +46,7 @@ def main(request):
     'slack': True,
     'type': 'message',
     'message': i18n.t('MESSAGE_HELLO_WORLD'),
-    'channel': params['channel']
+    'channel': params['channel']['id']
   })
   
   # # Response - Open Slack Dialog
@@ -58,7 +58,7 @@ def main(request):
   #   'type': 'dialog',
   #   'dialog': DIALOG,
   #   'trigger_id': params['trigger_id'],
-  #   'channel': params['channel']
+  #   'channel': params['channel']['id]
   # })
 
   # # Response - No response to return 
