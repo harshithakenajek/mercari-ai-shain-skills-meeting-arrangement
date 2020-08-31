@@ -48,12 +48,12 @@ $ gcloud config set project ${GCP_PROJECT_NAME}
 $ gcloud functions deploy ${FUNCTION_NAME} --trigger-http --env-vars-file .env.yaml --runtime python37 --allow-unauthenticated --entry-point main
 $ gcloud functions describe ${FUNCTION_NAME} // Get a Target URL
 ```
-*Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.
+Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.
 
-After a successful deployment of your `skill` on `cloud functions`, you need to share the `Target URL` for your endpoint on cloud functions with the AI Shain team(#pj-ai-shain-support) so that they can configure `HISASHI` to forward the requests to your endpoint.
+After a successful deployment of your `skill` on `cloud functions`, you need to share the `Target URL` for your endpoint on cloud functions with the AI Shain team [#pj-ai-shain-support](https://app.slack.com/client/T0256J926/CPXN3K0JE) so that they can configure `HISASHI` to forward the requests to your endpoint.
 
 ## 6. Register your skill
-Go to [mercari-ai-shain-skills|https://github.com/keito-fukuda/mercari-ai-shain-skills.git] then follow the README.md.
+Go to [mercari-ai-shain-skills](https://github.com/keito-fukuda/mercari-ai-shain-skills.git) then follow the README.md.
 
 # API Specification
 ## Request
@@ -68,7 +68,7 @@ Currently there are 2 types of payload requests supported.
 
 ### 1. Slack User Query and Interactive Component Event
 
-`parameters`:
+`Payload Format`:
 | Name             | Type      | Description                                                                 |
 |:-----------------|:---------:|:----------------------------------------------------------------------------|
 | user             | `String`  | Slack user id (Unique)                                                      |
@@ -91,9 +91,9 @@ Currently there are 2 types of payload requests supported.
 | is_thread        | `Boolean` | User query in slack thread or not [In thread=`True`, Not in thread=`False`] |
 | response_url     | `String`  | Slack response url                                                          |
 
-```
-Sample payload
 
+`Sample Payload`:
+```
 {
    "user":"ABCDEF123",
    "user_name":"firstname.lastname",
@@ -123,7 +123,7 @@ Sample payload
 
 ### 2. Slack Dialog Submission
 
-`parameters`:
+`Payload Format`:
 | Name             | Type      | Description                                                                 |
 |:-----------------|:---------:|:----------------------------------------------------------------------------|
 | type             | `String`  | Slack event type [type =`dialog_submission`]                                |
@@ -144,8 +144,8 @@ Sample payload
 | state            | `String`  | Language code for user query                                                |
 | response_url     | `String`  | Slack response url                                                          |
 
+`Sample Payload`:
 ```
-Sample payload
 {
    "type":"dialog_submission",
    "token":"abcdefghijkl1234",
@@ -183,7 +183,7 @@ Currently there are 2 types of responses supported.
 
 ### 1. Post Slack Message
 
-`fields`:
+`Payload Format`:
 | Name             | Type      | Description                                                                 |
 |:-----------------|:---------:|:----------------------------------------------------------------------------|
 | slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
@@ -192,8 +192,9 @@ Currently there are 2 types of responses supported.
 | channel          | `String`  | Slack channel id where message to be post                                   |
 | thread_ts        | `String`  | Timestamp for slack thread to post message in a thread                      |
 
+
+`Sample Payload`:
 ```
-Sample payload
 {
    "slack":True,
    "type":"message",
@@ -205,7 +206,7 @@ Sample payload
 
 ### 2. Open Slack Dialog
 
-`fields`:
+`Payload Format`:
 | Name             | Type      | Description                                                                 |
 |:-----------------|:---------:|:----------------------------------------------------------------------------|
 | slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
@@ -214,8 +215,9 @@ Sample payload
 | channel          | `String`  | Slack channel id where dialog to be open                                    |
 | trigger_id       | `String`  | Trigger id required to open a dialog in slack                               |
 
+
+`Sample Payload`:
 ```
-Sample payload
 {
    "slack":True,
    "type":"dialog",
