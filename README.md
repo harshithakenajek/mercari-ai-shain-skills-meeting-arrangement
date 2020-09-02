@@ -183,7 +183,6 @@ Currently there are 2 types of payload requests supported.
     "submission": {
       "data1": "value1",
       "data2": "value2",
-       --:-- : --:--
     },
     "callback_id": "T_Translation_Text_Yes",
     "action_ts": "1598611694.461795",
