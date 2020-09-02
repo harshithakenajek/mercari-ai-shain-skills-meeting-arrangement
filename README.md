@@ -100,6 +100,8 @@ Currently there are 2 types of payload requests supported.
 `Sample Payload`:
 ```
 {
+  "client": "slack",
+  "type": "message",
   "user": {
     "id": "ABCDEF123",
     "name": "firstname.lastname",
