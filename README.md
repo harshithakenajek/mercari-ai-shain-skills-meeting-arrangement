@@ -62,171 +62,204 @@ POST / HTTP/1.1
 Host: ${Your Skill Endpoint}
 ```
 
-`payload` should be a string representing valid JSON.
+`Payload` should be a string representing valid JSON.
 
 Currently there are 2 types of payload requests supported.
 
 ### 1. Slack User Query and Interactive Component Event
 
 `Payload Format`:
-| Name             | Type      | Description                                                                 |
-|:-----------------|:---------:|:----------------------------------------------------------------------------|
-| user             | `Object`  |                                                                             |
-|   id             | `String`  | Slack user id (Unique)                                                      |
-|   name           | `String`  | Slack user name                                                             |
-|   real_name      | `String`  | Slack user real name                                                        |
-|   phone          | `String`  | Slack user contact number                                                   |
-|   email          | `String`  | Slack user email address                                                    |
-| channel          | `Object`  |                                                                             |
-|   id             | `String`  | Slack channel id (Unique)                                                   |
-|   name           | `String`  | Slack channel name                                                          |
-|   type           | `String`  | Slack channel type (private/group/direct_message)                           |
-| ts               | `String`  | Slack event timestamp                                                       |
-| text             | `String`  | User query in slack                                                         |
-| query            | `String`  | User query in slack                                                         |
-| intent           | `String`  | Dialogflow detected intent name                                             |
-| confidence       | `Number`  | Dialogflow confidence value                                                 |
-| lang             | `String`  | Language code for user query                                                |
-| params           | `Object`  | Parameters for dialogflow detected intent                                   |
-| trigger_id       | `String`  | Trigger id for slack interactive component(button) click event              |
-| intent_in_thread | `String`  | Dialogflow detected intent name in slack thread [default  value = `None`]   |
-| is_thread        | `Boolean` | User query in slack thread or not [In thread=`True`, Not in thread=`False`] |
-| response_url     | `String`  | Slack response url                                                          |
+| Name               | Type      | Description                                                                 |
+|:-------------------|:---------:|:----------------------------------------------------------------------------|
+| client             | `String`  | `slack`                                                                     |
+| type               | `String`  | `message`                                                                   |
+| user               | `Object`  |                                                                             |
+|   id               | `String`  | Slack user id (Unique)                                                      |
+|   name             | `String`  | Slack user name                                                             |
+|   real_name        | `String`  | Slack user real name                                                        |
+|   phone            | `String`  | Slack user contact number                                                   |
+|   email            | `String`  | Slack user email address                                                    |
+|   title            | `String`  | Slack user designation/position/title                                       |
+| channel            | `Object`  |                                                                             |
+|   id               | `String`  | Slack channel id (Unique)                                                   |
+|   name             | `String`  | Slack channel name                                                          |
+|   type             | `String`  | Slack channel type (private/group/direct_message)                           |
+| ts                 | `String`  | Slack event timestamp                                                       |
+| data               | `Object`  |                                                                             |
+|   text             | `String`  | User query in slack                                                         |
+|   query            | `String`  | User query in slack                                                         |
+|   intent           | `String`  | Dialogflow detected intent name                                             |
+|   confidence       | `Number`  | Dialogflow confidence value                                                 |
+|   lang             | `String`  | Language code for user query                                                |
+|   params           | `Object`  | Parameters for dialogflow detected intent                                   |
+|   trigger_id       | `String`  | Trigger id for slack interactive component(button) click event              |
+|   intent_in_thread | `String`  | Dialogflow detected intent name in slack thread [default  value = `None`]   |
+|   is_thread        | `Boolean` | User query in slack thread or not [In thread=`True`, Not in thread=`False`] |
+|   response_url     | `String`  | Slack response url                                                          |
 
 `Sample Payload`:
 ```
 {
-   "user": {
-       "id": "ABCDEF123",
-       "name": "firstname.lastname",
-       "real_name": "Full Name",
-       "phone": "(143) 333-3333",
-       "email": "abcd@email_domain.com",
-   },
-   "channel": {
-       "id": "ABCDEF123",
-       "name": "group-ai-shain-req",
-       "type": "channel",
-   },
-   "ts": "1598610482.004000",
-   "text": "Input text",
-   "query": "Input text",
-   "intent": "T_Translation - Text - Yes",
-   "confidence": 1.0,
-   "lang": "en",
-   "params": {
-       "param1": "value1",
-       "param2": "value2",
-       --:--   : --:--
-   },
-   "trigger_id": "1353122138272.748717076835.7635795da95189a032624b49bec36535",
-   "intent_in_thread": "None",
-   "is_thread": False,
-   "response_url": "https://hooks.slack.com/actions/TABCDEF123/1329488376211/t5AjhGgv6Z8QeBWr7YoDV7zn"
+  "user": {
+    "id": "ABCDEF123",
+    "name": "firstname.lastname",
+    "real_name": "Full Name",
+    "phone": "(143) 333-3333",
+    "email": "abcd@email_domain.com",
+    "title": "Senior Developer"
+  },
+  "channel": {
+    "id": "ABCDEF123",
+    "name": "group-ai-shain-req",
+    "type": "channel",
+  },
+  "ts": "1598610482.004000",
+  "data": {
+    "text": "Input text",
+    "query": "Input text",
+    "intent": "T_Translation - Text - Yes",
+    "confidence": 1.0,
+    "lang": "en",
+    "params": {
+      "param1": "value1",
+      "param2": "value2",
+    },
+    "trigger_id": "1353122138272.748717076835.7635795da95189a032624b49bec36535",
+    "intent_in_thread": "None",
+    "is_thread": False,
+    "response_url": "https://hooks.slack.com/actions/TABCDEF123/1329488376211/t5AjhGgv6Z8QeBWr7YoDV7zn"
+   }
 }
 ```
 
 ### 2. Slack Dialog Submission
 
 `Payload Format`:
-| Name             | Type      | Description                                                                 |
-|:-----------------|:---------:|:----------------------------------------------------------------------------|
-| type             | `String`  | Slack event type [type =`dialog_submission`]                                |
-| token            | `String`  | Slack app token (Unique)                                                    |
-| team             | `Object`  | Slack workspace data                                                        |
-|   id             | `String`  | Slack team id                                                               |
-|   domain         | `String`  | Slack domain name                                                           |
-| user             | `Object`  | Slack user data                                                             |
-|   id             | `String`  | Slack user id (Unique)                                                      |
-|   name           | `String`  | Slack user name                                                             |
-| channel          | `Object`  | Slack channel data                                                          |
-|   id             | `String`  | Slack channel id (Unique)                                                   |
-|   name           | `String`  | Slack channel name                                                          |
-| submission       | `Object`  | Data entered by user in slack dialog                                        |
-| callback_id      | `String`  | Callback id set in dialogflow intent response                               |
-| user_title       | `String`  | Slack user designation/position/title                                       |
-| action_ts        | `String`  | Slack event timestamp                                                       |
-| state            | `String`  | Language code for user query                                                |
-| response_url     | `String`  | Slack response url                                                          |
+| Name               | Type      | Description                                                                 |
+|:-------------------|:---------:|:----------------------------------------------------------------------------|
+| client             | `String`  | `slack`                                                                     |
+| type               | `String`  | `dialog`                                                                    |
+| user               | `Object`  |                                                                             |
+|   id               | `String`  | Slack user id (Unique)                                                      |
+|   name             | `String`  | Slack user name                                                             |
+|   real_name        | `String`  | Slack user real name                                                        |
+|   phone            | `String`  | Slack user contact number                                                   |
+|   email            | `String`  | Slack user email address                                                    |
+|   title            | `String`  | Slack user designation/position/title                                       |
+| channel            | `Object`  |                                                                             |
+|   id               | `String`  | Slack channel id (Unique)                                                   |
+|   name             | `String`  | Slack channel name                                                          |
+|   type             | `String`  | Slack channel type (private/group/direct_message)                           |
+| ts                 | `String`  | Slack event timestamp                                                       |
+| data               | `Object`  |                                                                             |
+|   submission       | `Object`  | Data submitted by user in slack dialog                                      |
+|   callback_id      | `String`  | Callback id set in dialogflow intent response                               |                                    |
+|   action_ts        | `String`  | Slack event timestamp                                                       |
+|   state            | `String`  | Language code for user query                                                |
+|   response_url     | `String`  | Slack response url                                                          |
 
 `Sample Payload`:
 ```
 {
-   "type": "dialog_submission",
-   "token": "abcdefghijkl1234",
-   "action_ts": "1598611694.461795",
-   "team": {
-      "id": "TABCDEF123",
-      "domain": "abcdefghijkl"
-   },
-   "user": {
-      "id": "ABCDEF123",
-      "name": "firstname.lastname",
-      "title": "Senior Developer"
-   },
-   "channel": {
-      "id": "ABCDEF123",
-      "name": "group-ai-shain-req"
-   },
-   "submission": {
+  "client": "slack",
+  "type": "dialog",
+  "user": {
+    "id": "ABCDEF123",
+    "name": "firstname.lastname",
+    "real_name": "Full Name",
+    "phone": "(143) 333-3333",
+    "email": "abcd@email_domain.com",
+    "title": "Senior Developer"
+  },
+  "channel": {
+    "id": "ABCDEF123",
+    "name": "group-ai-shain-req"
+    "type": "channel",
+  },
+  "ts": "1598610482.004000",
+  "data": {
+    "submission": {
       "data1": "value1",
       "data2": "value2",
        --:-- : --:--
-   },
-   "callback_id": "T_Translation_Text_Yes",
-   "response_url": "https://hooks.slack.com/app/TABCDEF123/1353152152704/EOajVmIGyjvYPDdkZSDknJCO",
-   "state": "en",
+    },
+    "callback_id": "T_Translation_Text_Yes",
+    "action_ts": "1598611694.461795",
+    "state": "en",
+    "response_url": "https://hooks.slack.com/app/TABCDEF123/1353152152704/EOajVmIGyjvYPDdkZSDknJCO",
+  }
 }
 ```
 
 ## Response
-Response format send to webhook from your skill
+Response format sent to webhook from your skill
 
-`response` should be a string representing valid JSON.
+`Payload` should be a string representing valid JSON.
 
-Currently there are 2 types of responses supported.
+Currently there are 2 types of responses supported depending on `type`, `data` field has a different structure underneath.
 
 ### 1. Post Slack Message
 
 `Payload Format`:
-| Name             | Type      | Description                                                                 |
+| Name             | Type      | Required  | Description                                                     |
 |:-----------------|:---------:|:----------------------------------------------------------------------------|
-| slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
-| type             | `String`  | Type of response [Here value is `message`]                                  |
-| message          | `String`  | Message to be posted to slack                                               |
-| channel          | `String`  | Slack channel id where message to be post                                   |
-| thread_ts        | `String`  | Timestamp for slack thread to post message in a thread                      |
-
+| client           | `String`  | YES       | `slack`                                                         |
+| type             | `String`  | YES       | `mnessage`                                                      |
+| channel          | `String`  | YES       | Slack channel id where message to be post                       |
+| thread_ts        | `String`  | NO        | Timestamp for slack thread to post message in a thread only if you want to deliver response in thread                     |
+| data             | `Object`  | YES       | Message to be posted to slack                                   |
+|   text           | `String`  | YES       | Text to be posted to slack                                      |
+|   attachments    | `Array`   | YES       | Attachements to be posted to slack: please refer to [Slack Document](https://api.slack.com/legacy/interactive-message-field-guide#field-guide__top-level-message-fields__attachment-fields)                                      |
 
 `Sample Payload`:
 ```
 {
-   "slack": True,
-   "type": "message",
-   "message": "Please give me a Google Slide or Google Docs URL.",
-   "channel": "ABCDEF123",
-   "thread_ts": "1598612489.000300"
+  "client": "slack",
+  "type": "message",
+  "channel": "ABCDEF123",
+  "thread_ts": "1598612489.000300"
+  "data": {
+    "text": "text",
+    "attachments": [{
+      "text": 'buttons',
+      "callback_id": "buttons",
+      "actions": [
+      {
+        'name': 'button_1',
+        'text': 'button_1',
+        'type': 'button',
+        'value': 'button_1'
+      },
+      {
+        'name': 'button_2',
+        'text': 'button_2',
+        'type': 'button',
+        'value': 'button_2'
+      }
+      ]
+    }]
+  }
 }
 ```
 
 ### 2. Open Slack Dialog
 
 `Payload Format`:
-| Name             | Type      | Description                                                                 |
-|:-----------------|:---------:|:----------------------------------------------------------------------------|
-| slack            | `Boolean` | Response to slack or not [to slack=`True`,not to slack=`False`]             |
-| type             | `String`  | Type of response [Here value is `dialog`]                                   |
-| dialog           | `String`  | Dialog component to be opened in slack                                      |
-| channel          | `String`  | Slack channel id where dialog to be open                                    |
-| trigger_id       | `String`  | Trigger id required to open a dialog in slack                               |
-
+| Name             | Type      | Required  | Description                                                                 |
+|:-----------------|:---------:|:---------:|:----------------------------------------------------------------------------|
+| client           | `String`  | YES       | `slack`                                                                     |
+| type             | `String`  | YES       | `dialog`                                                                    |
+| channel          | `String`  | YES       | Slack channel id where dialog to be open                                    |
+| data             | `Object`  | YES       | Payload for dialog: Please refer to [Slack Document](https://api.slack.com/dialogs#dialogs__opening-a-dialog) |
 
 `Sample Payload`:
 ```
 {
-   "slack": True,
-   "type": "dialog",
-   "dialog": {
+  "slack": True,
+  "type": "dialog",
+  "channel": "ABCDEF123"
+  "data": {
+    "dialog": {
       "callback_id": "T_Translation_Text_Yes",
       "title": "Text Translation",
       "submit_label": "Translate",
@@ -240,9 +273,9 @@ Currently there are 2 types of responses supported.
             "placeholder": "Text"
          }
       ]
-   },
-   "trigger_id": "1353150953984.748717076835.05018bed51c9de935d76f2085bb61d2a",
-   "channel": "ABCDEF123"
+    },
+    "trigger_id": "1353150953984.748717076835.05018bed51c9de935d76f2085bb61d2a",
+  }
 }
 ```
 
