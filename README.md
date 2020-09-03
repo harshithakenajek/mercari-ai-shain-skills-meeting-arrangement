@@ -5,7 +5,7 @@ This is a repo which acts as a template for developers to create your own skill 
 - Python 3.x (You can build your skill in a different language as long as you pick a language supported on cloud functions)
 - Cloud Functions on GCP
 
-If you would like to build your skill on a different platform, that's fine as long as your skill provides necessary HTTPs endpoint.
+If you would like to build your skill on a different platform, that's fine as long as your skill provides necessary HTTPs endpoint.<br/>
 In that case, please jump to step 5 after creating your HTTPs endpoint.
 
 # Steps
@@ -48,25 +48,25 @@ $ gcloud config set project ${GCP_PROJECT_NAME}
 $ gcloud functions deploy ${FUNCTION_NAME} --trigger-http --env-vars-file .env.yaml --runtime python37 --allow-unauthenticated --entry-point main
 $ gcloud functions describe ${FUNCTION_NAME} // Get a Target URL
 ```
-Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.
-
+Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.<br/>
+<br/>
 After a successful deployment of your `skill` on `cloud functions`, you need to share the `Target URL` for your endpoint on cloud functions with the AI Shain team [#pj-ai-shain-support](https://app.slack.com/client/T0256J926/CPXN3K0JE) so that they can configure `HISASHI` to forward the requests to your endpoint.
 
 ## 6. Register your skill
 Go to [mercari-ai-shain-skills](https://github.com/keito-fukuda/mercari-ai-shain-skills.git) then follow the README.md.
 
 # API Specification
+
 ## Request
 ```
 POST / HTTP/1.1
 Host: ${Your Skill Endpoint}
 ```
 
-`Payload` should be a string representing valid JSON.
-
+`Payload` should be a string representing valid JSON.<br/>
 Currently there are 2 types of payload requests supported.
 
-### 1. Slack User Query and Interactive Component Event
+### 1. User Query and Interactive Component Event(e.g. Buttons)
 
 `Payload Format`:
 | Name               | Type      | Description                                                                 |
@@ -134,7 +134,7 @@ Currently there are 2 types of payload requests supported.
 }
 ```
 
-### 2. Slack Dialog Submission
+### 2. Dialog Submission
 
 `Payload Format`:
 | Name               | Type      | Description                                                                 |
@@ -193,13 +193,18 @@ Currently there are 2 types of payload requests supported.
 ```
 
 ## Response
-Response format sent to webhook from your skill
+Response format sent to webhook from your skill.<br/>
+`Payload` should be a string representing valid JSON.<br/>
+Currently there are 4 types of responses supported depending on `type`, `data` field has a different structure underneath.
 
-`Payload` should be a string representing valid JSON.
+### 1. No Message to Deliver
 
-Currently there are 2 types of responses supported depending on `type`, `data` field has a different structure underneath.
+You can simply return empty json.
+```
+{}
+```
 
-### 1. Post Slack Message
+### 2. Deliver Message
 
 `Payload Format`:
 | Name             | Type      | Required  | Description                                                     |
@@ -243,7 +248,14 @@ Currently there are 2 types of responses supported depending on `type`, `data` f
 }
 ```
 
-### 2. Open Slack Dialog
+### 3. Async Response
+Sometime your skill need long time to process and be ready to deliver message back to users.<br/>
+In that case, you can imediately return an empty json response, then use `response_url` in request payload to deliver message back to users.<br/>
+The `response_url` will be valid up to 5 times within 30 mins.<br/>
+Reference: [Slack Document](https://api.slack.com/legacy/interactive-messages#making-messages-interactive__building-workflows__responding-to-message-actions)
+
+
+### 4. Open Dialog
 
 `Payload Format`:
 | Name             | Type      | Required  | Description                                                                 |
@@ -280,6 +292,7 @@ Currently there are 2 types of responses supported depending on `type`, `data` f
 }
 ```
 
+
 # Repo Structure
 ## 1. Dependencies - requirements.txt
 Manage required packages with `requirements.txt`. 
@@ -295,8 +308,8 @@ $ cp .env.template.yaml .env.yaml
 And add the corresponding environment variable values in `.env.yaml`
 
 ## 4. Locales - locales
-Multi-lingual support for your service has been performed by including required locale files under `locales` directory
-For instance,
-Add `ja.yaml` file which includes messages in Japanese
-Add `en.yaml` file which includes messages in English
+Multi-lingual support for your service has been performed by including required locale files under `locales` directory.<br/>
+For instance,<br/>
+Add `ja.yaml` file which includes messages in Japanese<br/>
+Add `en.yaml` file which includes messages in English<br/>
 As of today, HISASHI supports only `Japanese` & `English`.
