@@ -203,7 +203,7 @@ Currently there are 2 types of responses supported depending on `type`, `data` f
 
 `Payload Format`:
 | Name             | Type      | Required  | Description                                                     |
-|:-----------------|:----------|:----------------------------------------------------------------------------|
+|:-----------------|:----------|:----------|:----------------------------------------------------------------|
 | client           | `String`  | YES       | `slack`                                                         |
 | type             | `String`  | YES       | `mnessage`                                                      |
 | channel          | `String`  | YES       | Slack channel id where message to be post                       |
