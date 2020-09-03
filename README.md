@@ -70,7 +70,7 @@ Currently there are 2 types of payload requests supported.
 
 `Payload Format`:
 | Name               | Type      | Description                                                                 |
-|:-------------------|:---------:|:----------------------------------------------------------------------------|
+|:-------------------|:----------|:----------------------------------------------------------------------------|
 | client             | `String`  | `slack`                                                                     |
 | type               | `String`  | `message`                                                                   |
 | user               | `Object`  |                                                                             |
@@ -138,7 +138,7 @@ Currently there are 2 types of payload requests supported.
 
 `Payload Format`:
 | Name               | Type      | Description                                                                 |
-|:-------------------|:---------:|:----------------------------------------------------------------------------|
+|:-------------------|:----------|:----------------------------------------------------------------------------|
 | client             | `String`  | `slack`                                                                     |
 | type               | `String`  | `dialog`                                                                    |
 | user               | `Object`  |                                                                             |
@@ -203,7 +203,7 @@ Currently there are 2 types of responses supported depending on `type`, `data` f
 
 `Payload Format`:
 | Name             | Type      | Required  | Description                                                     |
-|:-----------------|:---------:|:----------------------------------------------------------------------------|
+|:-----------------|:----------|:----------------------------------------------------------------------------|
 | client           | `String`  | YES       | `slack`                                                         |
 | type             | `String`  | YES       | `mnessage`                                                      |
 | channel          | `String`  | YES       | Slack channel id where message to be post                       |
@@ -247,7 +247,7 @@ Currently there are 2 types of responses supported depending on `type`, `data` f
 
 `Payload Format`:
 | Name             | Type      | Required  | Description                                                                 |
-|:-----------------|:---------:|:---------:|:----------------------------------------------------------------------------|
+|:-----------------|:----------|:----------|:----------------------------------------------------------------------------|
 | client           | `String`  | YES       | `slack`                                                                     |
 | type             | `String`  | YES       | `dialog`                                                                    |
 | channel          | `String`  | YES       | Slack channel id where dialog to be open                                    |
