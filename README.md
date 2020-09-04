@@ -45,15 +45,23 @@ $ pip install -r requirements.txt
 ## 5. Deployment
 ```
 $ gcloud config set project ${GCP_PROJECT_NAME}
-$ gcloud functions deploy ${FUNCTION_NAME} --trigger-http --env-vars-file .env.yaml --runtime python37 --allow-unauthenticated --entry-point main
-$ gcloud functions describe ${FUNCTION_NAME} // Get a Target URL
 ```
-Eliminate `--env-vars-file` option if you do not need environment variables or leave the `.env.yaml` empty otherwise you will get an error on deployment.<br/>
-<br/>
-After a successful deployment of your `skill` on `cloud functions`, you need to share the `Target URL` for your endpoint on cloud functions with the AI Shain team [#pj-ai-shain-support](https://app.slack.com/client/T0256J926/CPXN3K0JE) so that they can configure `HISASHI` to forward the requests to your endpoint.
+If you do not need .env.yaml
+```
+$ gcloud functions deploy --trigger-http --runtime python37 --allow-unauthenticated --entry-point main ${FUNCTION_NAME}
+```
+Otherwise
+```
+$ gcloud functions deploy --trigger-http --env-vars-file .env.yaml --runtime python37 --allow-unauthenticated --entry-point main ${FUNCTION_NAME}
+```
+Get a `Target URL` for your skill endpoint
+```
+$ gcloud functions describe ${FUNCTION_NAME}
+```
 
 ## 6. Register your skill
 Go to [mercari-ai-shain-skills](https://github.com/keito-fukuda/mercari-ai-shain-skills.git) then follow the README.md.
+After a successful deployment of your `skill` on `cloud functions`, you need to share the `Target URL` for your endpoint on cloud functions with the AI Shain team [#pj-ai-shain-support](https://app.slack.com/client/T0256J926/CPXN3K0JE) so that they can configure `HISASHI` to forward the requests to your endpoint.
 
 # API Specification
 

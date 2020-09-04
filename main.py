@@ -41,7 +41,12 @@ def main(request):
   # Locale setting
   set_locale(params['lang'])
 
-  # Response - Post Slack Message
+  # Response - No Message to deliver 
+  """
+  return json.dumps({})
+  """
+
+  # Response - Deliver Message
   return json.dumps({
     'slack': True,
     'type': 'message',
@@ -49,23 +54,18 @@ def main(request):
     'channel': params['channel']['id']
   })
   
-  # # Response - Open Slack Dialog
-  # # <Refer `Sample payload` for Response Format - Open Slack Dailog section in README.md
-  # # and create dialog component>
-  # DIALOG = {}
-  # return json.dumps({
-  #   'slack': True,
-  #   'type': 'dialog',
-  #   'dialog': DIALOG,
-  #   'trigger_id': params['trigger_id'],
-  #   'channel': params['channel']['id]
-  # })
-
-  # # Response - No response to return 
-  # return json.dumps({})
+  # Response - Open Dialog
+  # <Refer `Sample payload` for Response Format - Open Slack Dailog section in README.md
+  # and create dialog component>
+  """
+  DIALOG = {}
+  return json.dumps({
+    'slack': True,
+    'type': 'dialog',
+    'dialog': DIALOG,
+    'trigger_id': params['trigger_id'],
+    'channel': params['channel']['id']
+  })
+  """
 
   # # Go through README.md to get more clarity on Response Format
-
-
-
-
