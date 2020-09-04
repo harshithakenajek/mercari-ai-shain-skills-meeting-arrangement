@@ -21,14 +21,14 @@ Create a remote repo with the naming convention `mercari-ai-shain-skills-${SKILL
 ### 2.2. Change remote URL
 Change the URL for your remote git repo and verify it.
 ```
-$ git remote set-url origin ${GIT_URL}
+$ git remote add {SKILL_NAME} ${GIT_URL}
 $ git remote -v
 ```
 reference: https://docs.github.com/en/github/using-git/changing-a-remotes-url
 
 ### 2.3. Push remote repo
 ```
-git push origin master
+git push {SKILL_NAME}
 ```
 
 ## 3. Create a Virtual Environment

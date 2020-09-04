@@ -21,11 +21,6 @@ i18n.set('filename_format', '{locale}.{format}')
 i18n.set('file_format', 'yaml')
 i18n.set('skip_locale_root_data', True)
 
-# Set locale
-def set_locale(lang):
-  i18n.set('locale', lang)
-  i18n.set('fallback', DEFAULT_LANG)
-
 # Entry point
 def main(request):
   logging.info('========[START]========')
@@ -39,7 +34,7 @@ def main(request):
   logging.info(params)
 
   # Locale setting
-  set_locale(params['lang'])
+  i18n.set('locale', params['lang'])
 
   # Response - No Message to deliver 
   """
