@@ -67,8 +67,8 @@ After a successful deployment of your `skill` on `cloud functions`, you need to 
 
 ## Request
 ```
-POST / HTTP/1.1
-Host: ${Your Skill Endpoint}
+POST ${YOUR_SKILL_ENDPOINT_PATH} HTTP/1.1
+Host: ${YOUR_SKILL_ENDPOINT_HOST}
 ```
 
 `Payload` should be a string representing valid JSON.<br/>
