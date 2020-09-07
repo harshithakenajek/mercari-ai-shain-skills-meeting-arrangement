@@ -2,14 +2,15 @@ import os
 import logging
 import i18n
 import json
-# [IMPORT MORE PACKAGES if any]
 
-# [IMPORT EXTERNAL FILES if any]
+import T_Meetingroom_Availability
+import T_Meetingroom_Booking
+import T_Meetingroom_Location
 
-# [ENVIRONMENT VARIABLES if any]
-
-# [CONSTANT VALUES if any]
-DEFAULT_LANG = 'ja'
+# Const Vars
+INTENT_MEETINGROOM_AVAILABILITY = 'T_Meetingroom - Availability'
+INTENT_MEETINGROOM_BOOKING = 'T_Meetingroom - Booking'
+INTENT_MEETINGROOM_LOCATION = 'T_Meetingroom - Location'
 
 # Logging
 logging.getLogger().setLevel(logging.INFO)
@@ -36,31 +37,16 @@ def main(request):
   # Locale setting
   i18n.set('locale', params['lang'])
 
-  # Response - No Message to deliver 
-  """
-  return json.dumps({})
-  """
-
-  # Response - Deliver Message
-  return json.dumps({
-    'slack': True,
-    'type': 'message',
-    'message': i18n.t('MESSAGE_HELLO_WORLD'),
-    'channel': params['channel']['id']
-  })
+  # Availability
+  if 'intent' in params and params['intent'] == INTENT_MEETINGROOM_AVAILABILITY:
+    return T_Meetingroom_Availability.start(params)
+  # Booking
+  elif 'intent' in params and params['intent'] == INTENT_MEETINGROOM_BOOKING:
+    return T_Meetingroom_Booking.start(params)
+  # Location
+  elif 'intent' in params and params['intent'] == INTENT_MEETINGROOM_LOCATION:
+    return T_Meetingroom_Location.start(params)
+  else:
+    logging.info('Nothing to do....')
   
-  # Response - Open Dialog
-  # <Refer `Sample payload` for Response Format - Open Slack Dailog section in README.md
-  # and create dialog component>
-  """
-  DIALOG = {}
-  return json.dumps({
-    'slack': True,
-    'type': 'dialog',
-    'dialog': DIALOG,
-    'trigger_id': params['trigger_id'],
-    'channel': params['channel']['id']
-  })
-  """
-
-  # # Go through README.md to get more clarity on Response Format
+  return json.dumps({})

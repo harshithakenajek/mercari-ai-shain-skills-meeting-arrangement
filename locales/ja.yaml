@@ -1,5 +1,19 @@
-# Format
-# [MESSAGE_LABEL]: [ACTUAL MESSAGE_IN_JAPANESE]
-
-# Example
-MESSAGE_HELLO_WORLD: "こんにちは世界"
+MESSAGE_FLOOR_UNRECOGNIZED: "フロアの情報が取得できませんでした。フロアの情報を指定してください。"
+MESSAGE_MEETINGROOM_AVAILABILITY: "今から%{floor}階で空いているところは以下になります！\n
+*● 15分〜30分*\n
+%{text_15}
+\n
+*● 30分〜60分*\n
+%{text_30}
+\n
+*● 60分以上*\n
+%{text_60}"
+MESSAGE_MEETINGROOM_AVAILABILITY_FORMAT: "* *%{name}* （%{capacity}人）\n"
+MESSAGE_NO_MEETINGROOM_AVAILABLE: "ごめんなさい、空いている会議室が見つかりませんでした :bow:"
+MESSAGE_DURATION_UNIT_NOT_SUPPORTED: "時間の単位は「分」、「時間」、「日」のみサポートされています。"
+MESSAGE_MEETING_BOOKING: "`%{space}` の予約が完了しました :thumbsup:"
+MESSAGE_MEETINGROOM_LOCATION: "Google ChromeのExtensionが入っていれば以下のURLで正確な場所を確認できます :map-pin:\n
+%{url}\n
+\n
+※もしExtensionが入っていない方はこちらを入れてください :chrome:\n
+%{ext_url}"

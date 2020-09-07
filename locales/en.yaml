@@ -1,5 +1,19 @@
-# Format
-# [MESSAGE_LABEL]: [ACTUAL MESSAGE_IN_ENGLISH]
-
-# Example
-MESSAGE_HELLO_WORLD: "Hello World"
+MESSAGE_FLOOR_UNRECOGNIZED: "Floor information cound not be found... please specify a floor."
+MESSAGE_MEETINGROOM_AVAILABILITY: "Here is the list of rooms available on %{floor}F.\n
+*●15〜30mins*\n
+%{text_15}
+\n
+*●30〜60mins*\n
+%{text_30}
+\n
+*●60+mins*\n
+%{text_60}"
+MESSAGE_MEETINGROOM_AVAILABILITY_FORMAT: "* *%{name}* (%{capacity})\n"
+MESSAGE_NO_MEETINGROOM_AVAILABLE: "Sorry, no available meeting room found at this moment :bow:"
+MESSAGE_DURATION_UNIT_NOT_SUPPORTED: "Currently only *mins*, *hours*, *days* are supported as duration unit."
+MESSAGE_MEETING_BOOKING: "`%{space}` booked :thumbsup:"
+MESSAGE_MEETINGROOM_LOCATION: "If you have Google Chrome Extension, you can pinpoint the location at the following URL :map-pin:\n
+%{url}\n
+\n
+*If you do not have the Extension installed, please install from the following URL :chrome:\n
+%{ext_url}"

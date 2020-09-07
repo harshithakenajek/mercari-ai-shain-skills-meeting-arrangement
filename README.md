@@ -1,4 +1,4 @@
-# {YOUR_SKILL_NAME}
+# Meeting Room
 
 # Prerequisites
 - Python 3.x (You can build your skill in a different language as long as you pick a language supported on cloud functions)
@@ -7,7 +7,7 @@
 # Setup
 ## 1. Clone the repo
 ```
-$ git clone git@github.com:kouzoh/mercari-ai-shain-skills-{YOUR_SKILL_NAME}.git
+$ git clone git@github.com:kouzoh/mercari-ai-shain-skills-meetingroom.git
 ```
 
 ## 2. Creating Virtual Environment
@@ -30,12 +30,11 @@ Then fill each attirbutes for your environment.
 ## 5. Deplpyment
 ```
 $ gcloud config set project ${GCP_PROJECT_NAME}
-$ gcloud functions deploy --trigger-http --env-vars-file .env.yaml --runtime python37 --allow-unauthenticated --entry-point main {YOUR_SKILL_NAME}
-$ gcloud functions describe {YOUR_SKILL_NAME}
+$ gcloud functions deploy --trigger-http --env-vars-file .env.yaml --runtime python37 --allow-unauthenticated --entry-point main ${FUNCTION_NAME_FOR_YOUR_SKILL}
+$ gcloud functions describe ${FUNCTION_NAME_FOR_YOUR_SKILL}
 ```
-Remove `--env-vars-file .env.yaml` if you do not need any ENV VARS. 
 
 # Logs
 ```
-$ gcloud functions logs read {YOUR_SKILL_NAME}
+$ gcloud functions logs read ${FUNCTION_NAME_FOR_YOUR_SKILL}
 ```
