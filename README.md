@@ -1,4 +1,14 @@
 # Meeting Room
+With this skill, users can do the following tasks.
+
+1: Meeting Room Availability
+Users can check availabile meeting rooms on a specified floor.
+
+2: Meeting Room Booking
+Users can find and book a meeting room that meets their needs(duration, room size, floor).
+
+3: Meeting Room Location
+Users can know pinpoint location of the specified meeting room on the map.
 
 # Prerequisites
 - Python 3.x (You can build your skill in a different language as long as you pick a language supported on cloud functions)
