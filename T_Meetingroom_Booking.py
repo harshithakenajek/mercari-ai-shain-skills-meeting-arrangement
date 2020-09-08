@@ -4,12 +4,20 @@ import logging
 import i18n
 import json
 from datetime import datetime, timezone, timedelta
+import slack
 
 # Libs
 import libs.robin
 import libs.time
 
+# Env vars
+SLACK_BOT_USER_TOKEN = os.environ.get('SLACK_BOT_USER_TOKEN')
 SLACK_SUPPORT_CHANNEL = os.environ.get('SLACK_SUPPORT_CHANNEL')
+
+logging.info(SLACK_BOT_USER_TOKEN)
+
+# Slack client
+slack_client = slack.WebClient(token=SLACK_BOT_USER_TOKEN)
 
 def get_start_time():
   now = datetime.now(libs.time.JST)
@@ -103,8 +111,11 @@ def start(params):
 
   # Extract an email address to send the generated template
   try:
-    user_name = params['user']['name']
-    email = params['user']['email']
+    user_data = slack_client.users_info(
+        user=params['user']
+    )
+    user_name = user_data['user']['name']
+    email = user_data['user']['profile']['email']
   except BaseException:
     return json.dumps({
         'slack': True,
