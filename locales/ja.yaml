@@ -17,3 +17,4 @@ MESSAGE_MEETINGROOM_LOCATION: "Google ChromeのExtensionが入っていれば以
 \n
 ※もしExtensionが入っていない方はこちらを入れてください :chrome:\n
 %{ext_url}"
+MESSAGE_TEMPLATE_NO_SLACK_ACCOUNT: "ごめんなさい、Slack IDが見つかりませんでした。お手数ですが、<#%{channel}>まで連絡下さい。"

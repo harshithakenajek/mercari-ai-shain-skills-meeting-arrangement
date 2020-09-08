@@ -14,8 +14,6 @@ import libs.time
 SLACK_BOT_USER_TOKEN = os.environ.get('SLACK_BOT_USER_TOKEN')
 SLACK_SUPPORT_CHANNEL = os.environ.get('SLACK_SUPPORT_CHANNEL')
 
-logging.info(SLACK_BOT_USER_TOKEN)
-
 # Slack client
 slack_client = slack.WebClient(token=SLACK_BOT_USER_TOKEN)
 
@@ -112,7 +110,7 @@ def start(params):
   # Extract an email address to send the generated template
   try:
     user_data = slack_client.users_info(
-        user=params['user']
+        user=params['user']['id']
     )
     user_name = user_data['user']['name']
     email = user_data['user']['profile']['email']
@@ -125,7 +123,6 @@ def start(params):
             channel=SLACK_SUPPORT_CHANNEL
         ),
         'channel': params['channel']['id'],
-        'thread_ts': params['ts']
     })
 
   # Book a meeting room

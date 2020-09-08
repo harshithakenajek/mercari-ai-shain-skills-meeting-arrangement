@@ -17,3 +17,4 @@ MESSAGE_MEETINGROOM_LOCATION: "If you have Google Chrome Extension, you can pinp
 \n
 *If you do not have the Extension installed, please install from the following URL :chrome:\n
 %{ext_url}"
+MESSAGE_TEMPLATE_NO_SLACK_ACCOUNT: "Sorry, your Slack ID counld not be found... please contact <#%{channel}>."
