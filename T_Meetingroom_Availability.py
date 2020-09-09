@@ -13,7 +13,7 @@ def start(params):
   logging.info('Meeting Room Availability...[Start]')
 
   # Determine a floor
-  floor = params['params']['floor']
+  floor = params['data']['params']['floor']
   logging.info(floor)
 
   # TODO
@@ -31,10 +31,12 @@ def start(params):
     floor = '43'
   else:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED'),
-        'channel': params['channel']['id']
+        'data': {
+          'text': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED')
+        },
+        'channel': params['channel']
     })
   logging.info(floor)
 
@@ -44,10 +46,12 @@ def start(params):
   # No location retrieved
   if locations == []:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED'),
-        'channel': params['channel']['id']
+        'data': {
+          'text': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED')
+        },
+        'channel': params['channel']
     })
 
   floors = []
@@ -95,15 +99,17 @@ def start(params):
                       name=room['name'], capacity=room['capacity'])
 
   return json.dumps({
-      'slack': True,
+      'client': 'slack',
       'type': 'message',
-      'message': i18n.t(
+      'data': {
+        'text': i18n.t(
         'MESSAGE_MEETINGROOM_AVAILABILITY',
         floor=floor,
         text_15=text_15,
         text_30=text_30,
-        text_60=text_60),
-      'channel': params['channel']['id']
+        text_60=text_60)
+      },
+      'channel': params['channel']
   })
 
 def get_free_rooms(floors, minutes):

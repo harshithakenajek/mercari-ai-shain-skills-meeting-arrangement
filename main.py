@@ -35,16 +35,16 @@ def main(request):
   logging.info(params)
 
   # Locale setting
-  i18n.set('locale', params['lang'])
+  i18n.set('locale', params['data']['lang'])
 
   # Availability
-  if 'intent' in params and params['intent'] == INTENT_MEETINGROOM_AVAILABILITY:
+  if 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETINGROOM_AVAILABILITY:
     return T_Meetingroom_Availability.start(params)
   # Booking
-  elif 'intent' in params and params['intent'] == INTENT_MEETINGROOM_BOOKING:
+  elif 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETINGROOM_BOOKING:
     return T_Meetingroom_Booking.start(params)
   # Location
-  elif 'intent' in params and params['intent'] == INTENT_MEETINGROOM_LOCATION:
+  elif 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETINGROOM_LOCATION:
     return T_Meetingroom_Location.start(params)
   else:
     logging.info('Nothing to do....')

@@ -12,7 +12,7 @@ def start(params):
   logging.info('Meeting Room Location...[Start]')
 
   # Determine a floor
-  room_param = params['params']['room']
+  room_param = params['data']['params']['room']
   logging.info(room_param)
 
   # Replace spaces with + for URL
@@ -20,11 +20,13 @@ def start(params):
   logging.info(room_param)
 
   return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t(
+        'data': {
+          'text': i18n.t(
           'MESSAGE_MEETINGROOM_LOCATION',
           url=GOOGLE_MAP_URL.format(room=room_param),
-          ext_url=GOOGLE_CHROME_MAP_EXTENSION_URL),
-        'channel': params['channel']['id']
+          ext_url=GOOGLE_CHROME_MAP_EXTENSION_URL)
+        },
+        'channel': params['channel']
     })

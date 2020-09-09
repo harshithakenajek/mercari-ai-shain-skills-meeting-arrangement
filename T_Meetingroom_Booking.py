@@ -34,9 +34,9 @@ def start(params):
   logging.info('Meeting Room Booking...[Start]')
 
   # receive the parameters from dialogflow
-  floor = params['params']['floor']
-  duration = params['params']['duration']
-  capacity = params['params']['capacity']
+  floor = params['data']['params']['floor']
+  duration = params['data']['params']['duration']
+  capacity = params['data']['params']['capacity']
 
   logging.info(floor)
   logging.info(duration)
@@ -50,10 +50,12 @@ def start(params):
     duration_min = duration['amount'] * 60 * 24
   else:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t('MESSAGE_DURATION_UNIT_NOT_SUPPORTED'),
-        'channel': params['channel']['id']
+        'data': {
+          'text': i18n.t('MESSAGE_DURATION_UNIT_NOT_SUPPORTED')
+        },
+        'channel': params['channel']
     })
 
   start = get_start_time()
@@ -71,10 +73,12 @@ def start(params):
     floor = '43'
   else:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED'),
-        'channel': params['channel']['id']
+        'data': {
+          'text': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED')
+        },
+        'channel': params['channel']
     })
   logging.info(floor)
 
@@ -84,10 +88,12 @@ def start(params):
   # No location retrieved
   if locations == []:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED'),
-        'channel': params['channel']['id']
+        'data': {
+          'text': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED')
+        },
+        'channel': params['channel']
     })
 
   floors = []
@@ -101,28 +107,32 @@ def start(params):
   # No available meeting room
   if space == {}:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t('MESSAGE_NO_MEETINGROOM_AVAILABLE'),
-        'channel': params['channel']['id']
+        'data': {
+          'text': i18n.t('MESSAGE_NO_MEETINGROOM_AVAILABLE')
+        },
+        'channel': params['channel']
     })
 
   # Extract an email address to send the generated template
   try:
     user_data = slack_client.users_info(
-        user=params['user']['id']
+        user=params['user']
     )
     user_name = user_data['user']['name']
     email = user_data['user']['profile']['email']
   except BaseException:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t(
+        'data': {
+          'text': i18n.t(
             'MESSAGE_TEMPLATE_NO_SLACK_ACCOUNT',
             channel=SLACK_SUPPORT_CHANNEL
-        ),
-        'channel': params['channel']['id'],
+        )
+        },
+        'channel': params['channel'],
     })
 
   # Book a meeting room
@@ -135,17 +145,21 @@ def start(params):
         email)
     logging.info(meeting)
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t(
+        'data': {
+          'text': i18n.t(
             'MESSAGE_MEETING_BOOKING',
-            space=space['space']['name']),
-        'channel': params['channel']['id']
+            space=space['space']['name'])
+        },
+        'channel': params['channel']
     })
   except BaseException:
     return json.dumps({
-        'slack': True,
+        'client': 'slack',
         'type': 'message',
-        'message': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED'),
-        'channel': params['channel']['id']
+        'data': {
+          'text': i18n.t('MESSAGE_FLOOR_UNRECOGNIZED')
+        },
+        'channel': params['channel']
     })
