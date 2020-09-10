@@ -65,8 +65,6 @@ def start(params):
     floor = '15'
   elif floor == '18F':
     floor = '18'
-  elif floor == '21F':
-    floor = '21'
   elif floor == '25F':
     floor = '25'
   elif floor == '43F':
