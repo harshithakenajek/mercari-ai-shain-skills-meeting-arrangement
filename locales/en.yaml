@@ -18,3 +18,8 @@ MESSAGE_MEETINGROOM_LOCATION: "If you have Google Chrome Extension, you can pinp
 *If you do not have the Extension installed, please install from the following URL :chrome:\n
 %{ext_url}"
 MESSAGE_TEMPLATE_NO_SLACK_ACCOUNT: "Sorry, your Slack ID counld not be found... please contact <#%{channel}>."
+MESSAGE_SCHEDULE_ADJUSTMENT_DIALOG_TITLE: "Schedule Adjustment"
+MESSAGE_SCHEDULE_ADJUSTMENT_DIALOG_SUBMIT: "OK"
+MESSAGE_GUEST_REGISTER_USER_NOT_FOUND: "Your user profile data could not be retrieved :cry:"
+MESSAGE_GUEST_REGISTER_LABEL_MEETING_FLOOR: "Meeting Floor"
+MESSAGE_GUEST_REGISTER_LABEL_FLOOR_POSTFIX: "F"

@@ -3,14 +3,11 @@ import logging
 import i18n
 import json
 
-import T_Meetingroom_Availability
-import T_Meetingroom_Booking
-import T_Meetingroom_Location
+import T_Meetingroom_Arrangement
 
 # Const Vars
-INTENT_MEETINGROOM_AVAILABILITY = 'T_Meetingroom - Availability'
-INTENT_MEETINGROOM_BOOKING = 'T_Meetingroom - Booking'
-INTENT_MEETINGROOM_LOCATION = 'T_Meetingroom - Location'
+# INTENT_MEETING_ARRANGEMENT = 'T_Meeting - Arrangement'
+INTENT_MEETING_ARRANGEMENT_YES = 'T_Meeting - Arrangement - Yes'
 
 # Logging
 logging.getLogger().setLevel(logging.INFO)
@@ -23,30 +20,32 @@ i18n.set('file_format', 'yaml')
 i18n.set('skip_locale_root_data', True)
 
 # Entry point
+
+
 def main(request):
-  logging.info('========[START]========')
+    logging.info('========[START]========')
 
-  if not request.method == 'POST':
-    return 'Service is Up and Running....'
+    if not request.method == 'POST':
+        return 'Service is Up and Running....'
 
-  # Request parameters
-  payload = request.get_data()
-  params = json.loads(payload)
-  logging.info(params)
+    # Request parameters
+    payload = request.get_data()
+    params = json.loads(payload)
+    logging.info(params)
 
-  # Locale setting
-  i18n.set('locale', params['data']['lang'])
+    # Locale setting
 
-  # Availability
-  if 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETINGROOM_AVAILABILITY:
-    return T_Meetingroom_Availability.start(params)
-  # Booking
-  elif 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETINGROOM_BOOKING:
-    return T_Meetingroom_Booking.start(params)
-  # Location
-  elif 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETINGROOM_LOCATION:
-    return T_Meetingroom_Location.start(params)
-  else:
-    logging.info('Nothing to do....')
-  
-  return json.dumps({})
+    # Availability
+    # if 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETING_ARRANGEMENT:
+    #     return T_Meetingroom_Arrangement.open(params)
+    if 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETING_ARRANGEMENT_YES:
+        i18n.set('locale', params['data']['lang'])
+        return T_Meetingroom_Arrangement.open(params)
+    elif 'type' in params and params['type'] == 'view_submission':
+        i18n.set('locale', params['data']['state'])
+        return T_Meetingroom_Arrangement.start(params)
+    else:
+        i18n.set('locale', params['data']['lang'])
+        logging.info('Nothing to do....')
+
+    return json.dumps({})
