@@ -6,6 +6,9 @@ from datetime import datetime, timezone, timedelta
 import slack
 import os
 import requests
+from googleapiclient.discovery import build
+from google.oauth2 import service_account
+import pytz
 
 import Arrangement_Modal
 
@@ -18,6 +21,7 @@ slack_client = slack.WebClient(token=SLACK_BOT_USER_TOKEN)
 JST = timezone(timedelta(hours=+9), 'JST')
 TIME_FORMAT = '%H:00'
 DATE_FORMAT = '%Y-%m-%d'
+tz = pytz.timezone('US/Central')
 
 
 def open(params):
@@ -101,6 +105,8 @@ def start(params):
 
     # Get the free time of the mandatory users
     # timeSlots = getFreeTime(mandatoryUser)
+    getFreeTime(mandatoryUser)
+    return
     timeSlots = ['23/11 10:00-11:00', '23/11 20:00-21:00']
     actions = []
     # button = {}
@@ -140,6 +146,43 @@ def start(params):
 
 def getFreeTime(mandatoryUser):
     logging.info('Inside getFreetime function')
+    creds = service_account.Credentials.from_service_account_file(
+        'credentials.json',
+        scopes=['https://www.googleapis.com/auth/calendar']
+    )
+    service = build('calendar', 'v3', credentials=creds)
+    # Call the Calendar API
+    now = datetime.utcnow().isoformat()
+    to = datetime.utcnow() + timedelta(hours=9)
+    logging.info(now)
+    logging.info(to)
+    print('Getting the upcoming 10 events')
+    body = {
+        "timeMin": now,
+        "timeMax": to.isoformat(),
+        "timeZone": 'US/Central'
+    }
+    user_free_slots = []
+    for user in mandatoryUser:
+        body["items"] = [{"id": user}]
+
+        events_result = service.freebusy().query(body=body).execute()
+        logging.info(events_result)
+        cal_dict = events_result[u'calendars']
+        user_free_slots.append(cal_dict)
+    logging.info('free slots list')
+    logging.info(user_free_slots)
+    # Find the free slot convinient with all the mandatory users
+    if not user_free_slots:
+        print('No upcoming free slots found.')
+    # events_result = service.events().list(calendarId='primary', timeMin=now,
+    #                                       maxResults=10, singleEvents=True).execute()
+    # events = events_result.get('items', [])
+    # if not events:
+    #     print('No upcoming events found.')
+    # for event in events:
+    #     start = event['start'].get('dateTime', event['start'].get('date'))
+    #     print(start, event['summary'])
     # Write code for accessing free time and put in timeSlots array
     # url = 'https://www.googleapis.com/calendar/v3/freeBusy'
     # parameters = {
