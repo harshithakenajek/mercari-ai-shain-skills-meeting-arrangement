@@ -4,10 +4,12 @@ import i18n
 import json
 
 import T_Meetingroom_Arrangement
+import T_Meeting_Arrangement_Slot
 
 # Const Vars
 # INTENT_MEETING_ARRANGEMENT = 'T_Meeting - Arrangement'
 INTENT_MEETING_ARRANGEMENT_YES = 'T_Meeting - Arrangement - Yes'
+INTENT_MEETING_ARRANGEMENT_SLOT = 'T_Meeting - Arrangement - Slot'
 
 # Logging
 logging.getLogger().setLevel(logging.INFO)
@@ -41,6 +43,9 @@ def main(request):
     if 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETING_ARRANGEMENT_YES:
         i18n.set('locale', params['data']['lang'])
         return T_Meetingroom_Arrangement.open(params)
+    elif 'intent' in params['data'] and params['data']['intent'] == INTENT_MEETING_ARRANGEMENT_SLOT:
+        i18n.set('locale', params['data']['lang'])
+        return T_Meeting_Arrangement_Slot.start(params)
     elif 'type' in params and params['type'] == 'view_submission':
         i18n.set('locale', params['data']['state'])
         return T_Meetingroom_Arrangement.start(params)
